@@ -1,0 +1,5 @@
+docling
+sentence-transformers
+qdrant-client
+openai
+python-dotenv
