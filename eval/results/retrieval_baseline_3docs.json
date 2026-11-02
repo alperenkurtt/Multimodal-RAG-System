@@ -1,0 +1,140 @@
+{
+  "run": "baseline_3docs",
+  "summary": {
+    "all": {
+      "n": 14,
+      "hit@1": 0.7857142857142857,
+      "hit@3": 0.9285714285714286,
+      "hit@5": 0.9285714285714286,
+      "mrr": 0.8452380952380952
+    },
+    "lang=en": {
+      "n": 9,
+      "hit@1": 0.7777777777777778,
+      "hit@3": 0.8888888888888888,
+      "hit@5": 0.8888888888888888,
+      "mrr": 0.8333333333333334
+    },
+    "lang=tr": {
+      "n": 5,
+      "hit@1": 0.8,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 0.8666666666666666
+    },
+    "category=text": {
+      "n": 8,
+      "hit@1": 0.875,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 0.9166666666666666
+    },
+    "category=table": {
+      "n": 2,
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 1.0
+    },
+    "category=figure": {
+      "n": 3,
+      "hit@1": 0.6666666666666666,
+      "hit@3": 0.6666666666666666,
+      "hit@5": 0.6666666666666666,
+      "mrr": 0.6666666666666666
+    },
+    "category=trap": {
+      "n": 1,
+      "hit@1": 0.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 0.5
+    }
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "lang": "en",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q02",
+      "lang": "tr",
+      "category": "text",
+      "rank": 3
+    },
+    {
+      "id": "q03",
+      "lang": "en",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q04",
+      "lang": "tr",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q05",
+      "lang": "en",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q06",
+      "lang": "en",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q07",
+      "lang": "en",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q08",
+      "lang": "tr",
+      "category": "text",
+      "rank": 1
+    },
+    {
+      "id": "q09",
+      "lang": "en",
+      "category": "table",
+      "rank": 1
+    },
+    {
+      "id": "q10",
+      "lang": "tr",
+      "category": "table",
+      "rank": 1
+    },
+    {
+      "id": "q11",
+      "lang": "en",
+      "category": "figure",
+      "rank": 1
+    },
+    {
+      "id": "q12",
+      "lang": "tr",
+      "category": "figure",
+      "rank": 1
+    },
+    {
+      "id": "q13",
+      "lang": "en",
+      "category": "figure",
+      "rank": null
+    },
+    {
+      "id": "q14",
+      "lang": "en",
+      "category": "trap",
+      "rank": 2
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+[
+  {
+    "id": "q01",
+    "question": "Which model does Docling use for table structure recognition?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "The TableFormer model [12]"
+    ],
+    "answer": "TableFormer, a vision-transformer model that predicts the row/column structure of a table from an image.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q02",
+    "question": "Docling tabloları nasıl tanıyor?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "The TableFormer model [12]"
+    ],
+    "answer": "TableFormer modeliyle: tablonun görüntü kırpması ve metin hücreleri modele verilir, satır/sütun yapısı tahmin edilir ve PDF hücreleriyle eşleştirilir.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q03",
+    "question": "How long does it take to process a typical table on a CPU?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "between 2 and 6 seconds"
+    ],
+    "answer": "Between 2 and 6 seconds on a standard CPU, depending on the number of cells.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q04",
+    "question": "Docling OCR için hangi kütüphaneyi kullanıyor?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "we rely on EasyOCR"
+    ],
+    "answer": "EasyOCR.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q05",
+    "question": "At what resolution are page images fed to the layout analysis model?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "72 dpi"
+    ],
+    "answer": "72 dpi.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q06",
+    "question": "What architecture is Docling's layout analysis model derived from?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "derived from RT-DETR"
+    ],
+    "answer": "RT-DETR, re-trained on DocLayNet.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q07",
+    "question": "Does Docling support GPU acceleration?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "GPU acceleration support for the AI models is currently work-in-progress"
+    ],
+    "answer": "Work in progress and largely untested; it may work implicitly when CUDA is available.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q08",
+    "question": "Docling hangi lisansla dağıtılıyor?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "MITlicensed",
+      "MIT license agreement"
+    ],
+    "answer": "MIT lisansı.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q09",
+    "question": "What is the throughput in pages per second of the pypdfium backend on the Apple M3 Max with 16 threads?",
+    "lang": "en",
+    "category": "table",
+    "evidence": [
+      "2.18 2.45"
+    ],
+    "answer": "2.45 pages/s.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "Intel Xeon sisteminde native backend ne kadar bellek kullanıyor?",
+    "lang": "tr",
+    "category": "table",
+    "evidence": [
+      "6.16 GB"
+    ],
+    "answer": "6.16 GB.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "What is the inter-annotator mAP of Section-header in Manuals?",
+    "lang": "en",
+    "category": "figure",
+    "evidence": [
+      "90-92"
+    ],
+    "answer": "90-92 (from Table 1 of the DocLayNet paper, shown in Figure 4).",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "Docling'in işlem hattı hangi adımlardan oluşuyor?",
+    "lang": "tr",
+    "category": "figure",
+    "evidence": [
+      "Sketch of Docling's default processing pipeline",
+      "Docling implements a linear pipeline"
+    ],
+    "answer": "PDF ayrıştırma → model hattı (OCR, layout analizi, tablo yapısı) → sonuçların birleştirilmesi ve son işleme → JSON/Markdown çıktısı.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "Who are the authors of the DocLayNet paper?",
+    "lang": "en",
+    "category": "figure",
+    "evidence": [
+      "Birgit Pfitzmann"
+    ],
+    "answer": "Birgit Pfitzmann, Christoph Auer, Michele Dolfi, Ahmed S. Nassar, Peter Staar (shown in the Figure 2 screenshot).",
+    "sources": [
+      "arxiv.pdf",
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "What is the primary goal of the DocLayNet experiments?",
+    "lang": "en",
+    "category": "trap",
+    "evidence": [
+      "primary goal of DocLayNet"
+    ],
+    "answer": "To obtain high-quality ML models for document-layout analysis. Note: this text comes from a screenshot of the DocLayNet paper (Figure 3), not from the Docling report itself.",
+    "sources": [
+      "arxiv.pdf",
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "What accuracy does Docling achieve on the DocBank benchmark?",
+    "lang": "en",
+    "category": "unanswerable",
+    "evidence": [],
+    "answer": "Not reported in the document.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q16",
+    "question": "What is the capital of France?",
+    "lang": "en",
+    "category": "unanswerable",
+    "evidence": [],
+    "answer": "Not in the document.",
+    "sources": [
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q17",
+    "question": "How many annotators carried out the production annotation of DocLayNet?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "by 32 annotators"
+    ],
+    "answer": "32 annotators (40 were trained, 8 did not pass the exams).",
+    "sources": [
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q18",
+    "question": "DocLayNet'te veri seti neden sayfa bazında değil doküman bazında bölündü?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "pagewise splitting gains",
+      "split on full-document boundaries"
+    ],
+    "answer": "Sayfa bazlı rastgele bölme mAP'i ~%10 şişiriyor; aynı dokümanın sayfaları hem train hem test'e düşüp performansı olduğundan yüksek gösteriyor.",
+    "sources": [
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q19",
+    "question": "Which object detection model has the best overall mAP on the DocLayNet test set?",
+    "lang": "en",
+    "category": "table",
+    "evidence": [
+      "YOLO - v5x6"
+    ],
+    "answer": "YOLOv5x6 with 76.8 mAP, still below the human agreement of 82-83.",
+    "sources": [
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q20",
+    "question": "PubLayNet ile eğitilen model DocLayNet test setinde toplam kaç mAP aldı?",
+    "lang": "tr",
+    "category": "table",
+    "evidence": [
+      "PubLayNet (PLN)"
+    ],
+    "answer": "30 mAP (kendi test setinde 93).",
+    "sources": [
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q21",
+    "question": "What percentage of DocLayNet pages are financial reports?",
+    "lang": "en",
+    "category": "figure",
+    "evidence": [
+      "Financial 32%"
+    ],
+    "answer": "32%.",
+    "sources": [
+      "doclaynet.pdf"
+    ]
+  },
+  {
+    "id": "q22",
+    "question": "How many class labels does DocLayNet define?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "11 distinct"
+    ],
+    "answer": "11.",
+    "sources": [
+      "doclaynet.pdf",
+      "arxiv.pdf"
+    ]
+  },
+  {
+    "id": "q23",
+    "question": "Which CNN backbone does TableFormer use?",
+    "lang": "en",
+    "category": "text",
+    "evidence": [
+      "ResNet-18"
+    ],
+    "answer": "ResNet-18; input images are resized to 448x448 and the feature map is 28x28.",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q24",
+    "question": "TableFormer'ın Structure Decoder'ında kaç encoder ve kaç decoder katmanı var?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "two encoder layers"
+    ],
+    "answer": "2 encoder, 4 decoder katmanı.",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q25",
+    "question": "What TEDS score does TableFormer achieve on complex tables of PubTabNet?",
+    "lang": "en",
+    "category": "table",
+    "evidence": [
+      "| TableFormer | PTN",
+      "88.7% to 95%"
+    ],
+    "answer": "95.0 (simple 98.5, all 96.75).",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q26",
+    "question": "Camelot'un PubTabNet üzerindeki TEDS skoru nedir?",
+    "lang": "tr",
+    "category": "table",
+    "evidence": [
+      "| Camelot"
+    ],
+    "answer": "Simple 80.0, complex 66.0, all 73.0.",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q27",
+    "question": "Does the TableBank dataset include cell bounding boxes?",
+    "lang": "en",
+    "category": "table",
+    "evidence": [
+      "only few with bounding boxes",
+      "omit the bounding boxes for whole tables (e.g. TableBank)"
+    ],
+    "answer": "Mostly no: only a few tables have cell bounding boxes.",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q28",
+    "question": "In the multi-line header example (Figure 8), what is the odds ratio for severe bleeding?",
+    "lang": "en",
+    "category": "figure",
+    "evidence": [
+      "Severe bleeding | 15.86"
+    ],
+    "answer": "15.86 (95% CI 3.61-69.63, p < 0.001).",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q29",
+    "question": "TEDS metriği neyin kısaltması?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": [
+      "Tree-Edit-Distance-Based Similarity"
+    ],
+    "answer": "Tree-Edit-Distance-Based Similarity.",
+    "sources": [
+      "tableformer.pdf"
+    ]
+  },
+  {
+    "id": "q30",
+    "question": "What GPU was used to train TableFormer?",
+    "lang": "en",
+    "category": "unanswerable",
+    "evidence": [],
+    "answer": "Not reported in the document.",
+    "sources": []
+  }
+]

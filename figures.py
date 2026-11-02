@@ -116,7 +116,7 @@ def add_descriptions(doc: DoclingDocument, chunks: list[Chunk], cache_file: Path
             text_layer = picture_text_layer(doc, picture)
             description = describe_image(picture.get_image(doc), chunk.heading, caption, text_layer)
 
-            if text_layer:
+            if text_layer and text_layer.strip() != caption.strip():
                 suspicious = unverified_numbers(description, text_layer)
                 if suspicious:
                     print(f"  WARNING: numbers not found in text layer: {suspicious}")
