@@ -1,0 +1,267 @@
+{
+  "run": "hybrid",
+  "mode": "hybrid",
+  "summary": {
+    "all": {
+      "n": 27,
+      "hit@1": 0.5925925925925926,
+      "hit@3": 0.7777777777777778,
+      "hit@5": 0.7777777777777778,
+      "mrr": 0.6992210464432687
+    },
+    "lang=en": {
+      "n": 17,
+      "hit@1": 0.7058823529411765,
+      "hit@3": 0.8823529411764706,
+      "hit@5": 0.8823529411764706,
+      "mrr": 0.8014705882352942
+    },
+    "lang=tr": {
+      "n": 10,
+      "hit@1": 0.4,
+      "hit@3": 0.6,
+      "hit@5": 0.6,
+      "mrr": 0.5253968253968254
+    },
+    "category=text": {
+      "n": 14,
+      "hit@1": 0.6428571428571429,
+      "hit@3": 0.8571428571428571,
+      "hit@5": 0.8571428571428571,
+      "mrr": 0.746031746031746
+    },
+    "category=table": {
+      "n": 7,
+      "hit@1": 0.5714285714285714,
+      "hit@3": 0.7142857142857143,
+      "hit@5": 0.7142857142857143,
+      "mrr": 0.6607142857142857
+    },
+    "category=figure": {
+      "n": 5,
+      "hit@1": 0.4,
+      "hit@3": 0.6,
+      "hit@5": 0.6,
+      "mrr": 0.5619047619047619
+    },
+    "category=trap": {
+      "n": 1,
+      "hit@1": 1.0,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 1.0
+    },
+    "doc=arxiv.pdf": {
+      "n": 14,
+      "hit@1": 0.6428571428571429,
+      "hit@3": 0.7857142857142857,
+      "hit@5": 0.7857142857142857,
+      "mrr": 0.7324263038548752
+    },
+    "doc=doclaynet.pdf": {
+      "n": 6,
+      "hit@1": 0.3333333333333333,
+      "hit@3": 0.5,
+      "hit@5": 0.5,
+      "mrr": 0.46527777777777773
+    },
+    "doc=tableformer.pdf": {
+      "n": 7,
+      "hit@1": 0.7142857142857143,
+      "hit@3": 1.0,
+      "hit@5": 1.0,
+      "mrr": 0.8333333333333333
+    }
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "lang": "en",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 3
+    },
+    {
+      "id": "q02",
+      "lang": "tr",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 9
+    },
+    {
+      "id": "q03",
+      "lang": "en",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q04",
+      "lang": "tr",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q05",
+      "lang": "en",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q06",
+      "lang": "en",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q07",
+      "lang": "en",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q08",
+      "lang": "tr",
+      "category": "text",
+      "doc": "arxiv.pdf",
+      "rank": 2
+    },
+    {
+      "id": "q09",
+      "lang": "en",
+      "category": "table",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q10",
+      "lang": "tr",
+      "category": "table",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q11",
+      "lang": "en",
+      "category": "figure",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q12",
+      "lang": "tr",
+      "category": "figure",
+      "doc": "arxiv.pdf",
+      "rank": 7
+    },
+    {
+      "id": "q13",
+      "lang": "en",
+      "category": "figure",
+      "doc": "arxiv.pdf",
+      "rank": 6
+    },
+    {
+      "id": "q14",
+      "lang": "en",
+      "category": "trap",
+      "doc": "arxiv.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q17",
+      "lang": "en",
+      "category": "text",
+      "doc": "doclaynet.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q18",
+      "lang": "tr",
+      "category": "text",
+      "doc": "doclaynet.pdf",
+      "rank": 6
+    },
+    {
+      "id": "q19",
+      "lang": "en",
+      "category": "table",
+      "doc": "doclaynet.pdf",
+      "rank": 8
+    },
+    {
+      "id": "q20",
+      "lang": "tr",
+      "category": "table",
+      "doc": "doclaynet.pdf",
+      "rank": null
+    },
+    {
+      "id": "q21",
+      "lang": "en",
+      "category": "figure",
+      "doc": "doclaynet.pdf",
+      "rank": 2
+    },
+    {
+      "id": "q22",
+      "lang": "en",
+      "category": "text",
+      "doc": "doclaynet.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q23",
+      "lang": "en",
+      "category": "text",
+      "doc": "tableformer.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q24",
+      "lang": "tr",
+      "category": "text",
+      "doc": "tableformer.pdf",
+      "rank": 3
+    },
+    {
+      "id": "q25",
+      "lang": "en",
+      "category": "table",
+      "doc": "tableformer.pdf",
+      "rank": 2
+    },
+    {
+      "id": "q26",
+      "lang": "tr",
+      "category": "table",
+      "doc": "tableformer.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q27",
+      "lang": "en",
+      "category": "table",
+      "doc": "tableformer.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q28",
+      "lang": "en",
+      "category": "figure",
+      "doc": "tableformer.pdf",
+      "rank": 1
+    },
+    {
+      "id": "q29",
+      "lang": "tr",
+      "category": "text",
+      "doc": "tableformer.pdf",
+      "rank": 1
+    }
+  ]
+}

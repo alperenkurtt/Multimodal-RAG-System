@@ -5,6 +5,7 @@ from pathlib import Path
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
+from hybrid import BM25Index, hybrid_search
 from index import EMBED_MODEL, QDRANT_DIR
 from search import search
 
@@ -36,19 +37,28 @@ def summarize(ranks: list[int | None]) -> dict:
 
 if __name__ == "__main__":
     run_name = sys.argv[1] if len(sys.argv) > 1 else "baseline"
+    mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid
 
     questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
     questions = [q for q in questions if q["evidence"]]  # unanswerable ones have no evidence
 
     model = SentenceTransformer(EMBED_MODEL)
     qdrant = QdrantClient(path=QDRANT_DIR)
+    bm25 = BM25Index(qdrant)
 
     rows = []
     for q in questions:
-        points = search(q["question"], model, qdrant, k=MAX_K)
+        if mode == "dense":
+            points = search(q["question"], model, qdrant, k=MAX_K)
+        elif mode == "bm25":
+            points = [point for point, _score in bm25.search(q["question"], k=MAX_K)]
+        elif mode == "hybrid":
+            points = hybrid_search(q["question"], model, qdrant, bm25, k=MAX_K)
+        else:
+            raise ValueError(f"Unknown mode: {mode}")
         rank = first_relevant_rank(points, q["sources"], q["evidence"])
         rows.append({"id": q["id"], "lang": q["lang"], "category": q["category"],
-                    "doc": q["sources"][0], "rank": rank})
+                     "doc": q["sources"][0], "rank": rank})
         print(f"{q['id']}  {q['lang']}  {q['category']:<7} rank={str(rank or '-'):<3} {q['question'][:60]}")
 
     qdrant.close()
@@ -66,5 +76,5 @@ if __name__ == "__main__":
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_file = RESULTS_DIR / f"retrieval_{run_name}.json"
-    out_file.write_text(json.dumps({"run": run_name, "summary": summary, "rows": rows}, indent=2), encoding="utf-8")
+    out_file.write_text(json.dumps({"run": run_name, "mode": mode, "summary": summary, "rows": rows}, indent=2), encoding="utf-8")
     print(f"\nSaved: {out_file}")
