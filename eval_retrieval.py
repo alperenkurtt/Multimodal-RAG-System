@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer
 
 from hybrid import BM25Index, hybrid_search
 from index import EMBED_MODEL, QDRANT_DIR
+from rerank import load_reranker, rerank_search  # NEW
 from search import search
 
 EVAL_FILE = Path("eval/questions.json")
@@ -37,7 +38,7 @@ def summarize(ranks: list[int | None]) -> dict:
 
 if __name__ == "__main__":
     run_name = sys.argv[1] if len(sys.argv) > 1 else "baseline"
-    mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid
+    mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid | rerank  # NEW
 
     questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
     questions = [q for q in questions if q["evidence"]]  # unanswerable ones have no evidence
@@ -45,6 +46,7 @@ if __name__ == "__main__":
     model = SentenceTransformer(EMBED_MODEL)
     qdrant = QdrantClient(path=QDRANT_DIR)
     bm25 = BM25Index(qdrant)
+    reranker = load_reranker() if mode == "rerank" else None  # NEW: 2.3 GB, load only when needed
 
     rows = []
     for q in questions:
@@ -54,11 +56,13 @@ if __name__ == "__main__":
             points = [point for point, _score in bm25.search(q["question"], k=MAX_K)]
         elif mode == "hybrid":
             points = hybrid_search(q["question"], model, qdrant, bm25, k=MAX_K)
+        elif mode == "rerank":  # NEW
+            points = [point for point, _score in rerank_search(q["question"], model, qdrant, reranker, k=MAX_K)]
         else:
             raise ValueError(f"Unknown mode: {mode}")
         rank = first_relevant_rank(points, q["sources"], q["evidence"])
         rows.append({"id": q["id"], "lang": q["lang"], "category": q["category"],
-                     "doc": q["sources"][0], "rank": rank})
+                    "doc": q["sources"][0], "rank": rank})
         print(f"{q['id']}  {q['lang']}  {q['category']:<7} rank={str(rank or '-'):<3} {q['question'][:60]}")
 
     qdrant.close()
