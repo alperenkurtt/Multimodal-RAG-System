@@ -14,19 +14,32 @@ PDF ─► parse.py ─► chunks.py ─► figures.py ─► index.py ─► se
        Docling     text/table/   VLM figure    bge-m3 +    dense / BM25 / RRF / reranker      LLM answer
                    picture       descriptions  Qdrant                                         with citations
                                                                  │
-                                                       eval_retrieval.py
+                                                            evaluate.py
+```
+
+```
+data/            input PDFs
+cache/           parsed documents + figure descriptions (generated)
+qdrant_data/     vector index (generated)
+eval/            questions.json + results/
+docrag/
+├── config.py    paths and model names
+├── ingest/      parse.py, chunks.py, figures.py, index.py   (PDF -> vectors, run once)
+├── retrieval/   search.py, hybrid.py, rerank.py             (question -> chunks)
+├── answer.py    chunks -> cited answer
+└── evaluate.py  retrieval metrics
 ```
 
 | Step | File | What it does |
 |---|---|---|
-| Parse | `parse.py` | Docling: layout, text, table structure (TableFormer), figure images. Cached as JSON in `cache/`. |
-| Chunk | `chunks.py` | Three chunk types: **text** (grouped under section headings, max ~1500 chars), **table** (markdown + caption), **picture**. Skips references and tiny images. |
-| Figures | `figures.py` | Sends each figure to a VLM (Claude Haiku 5.5 via OpenRouter) for a searchable description. The PDF text layer is added to the prompt so numbers are copied, not guessed. Numbers not found in the text layer are flagged. Descriptions are cached. |
-| Index | `index.py` | Embeds all chunks of every PDF in `data/` with **bge-m3** and stores them in a local **Qdrant** folder, with type / page / heading / source metadata. |
-| Search | `search.py`, `hybrid.py` | Dense cosine search; BM25 (`rank_bm25`); Reciprocal Rank Fusion of both. |
-| Rerank | `rerank.py` | Dense top-20 candidates re-sorted by a cross-encoder (**bge-reranker-v2-m3**) that reads query + chunk together. |
+| Parse | `ingest/parse.py` | Docling: layout, text, table structure (TableFormer), figure images. Cached as JSON in `cache/`. |
+| Chunk | `ingest/chunks.py` | Three chunk types: **text** (grouped under section headings, max ~1500 chars), **table** (markdown + caption), **picture**. Skips references and tiny images. |
+| Figures | `ingest/figures.py` | Sends each figure to a VLM (Claude Haiku 5.5 via OpenRouter) for a searchable description. The PDF text layer is added to the prompt so numbers are copied, not guessed. Numbers not found in the text layer are flagged. Descriptions are cached. |
+| Index | `ingest/index.py` | Embeds all chunks of every PDF in `data/` with **bge-m3** and stores them in a local **Qdrant** folder, with type / page / heading / source metadata. |
+| Search | `retrieval/search.py`, `retrieval/hybrid.py` | Dense cosine search; BM25 (`rank_bm25`); Reciprocal Rank Fusion of both. |
+| Rerank | `retrieval/rerank.py` | Dense top-20 candidates re-sorted by a cross-encoder (**bge-reranker-v2-m3**) that reads query + chunk together. |
 | Answer | `answer.py` | Top chunks become numbered sources; figure sources also send the original image. The LLM answers in the question's language and cites sources like `[1][3]`. |
-| Eval | `eval_retrieval.py` | hit@1/3/5 and MRR, grouped by language, category and document. |
+| Eval | `evaluate.py` | hit@1/3/5 and MRR, grouped by language, category and document. |
 
 ## Setup
 
@@ -45,12 +58,13 @@ OPENROUTER_API_KEY=...
 ## Usage
 
 ```powershell
-python index.py                              # parse + describe figures + embed all PDFs in data/
-python search.py                             # interactive dense search
-python hybrid.py                             # interactive BM25 search
-python rerank.py                             # interactive dense top-20 + rerank
-python answer.py                             # interactive cited answers
-python eval_retrieval.py <run_name> <mode>   # mode: dense | bm25 | hybrid | rerank
+# always run from the project root
+python -m docrag.ingest.index                    # parse + describe figures + embed all PDFs in data/
+python -m docrag.retrieval.search                # interactive dense search
+python -m docrag.retrieval.hybrid                # interactive BM25 search
+python -m docrag.retrieval.rerank                # interactive dense top-20 + rerank
+python -m docrag.answer                          # interactive cited answers
+python -m docrag.evaluate <run_name> <mode>      # mode: dense | bm25 | hybrid | rerank
 ```
 
 ## Corpus

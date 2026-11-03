@@ -5,10 +5,10 @@ from pathlib import Path
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
-from hybrid import BM25Index, hybrid_search
-from index import EMBED_MODEL, QDRANT_DIR
-from rerank import load_reranker, rerank_search  # NEW
-from search import search
+from docrag.config import EMBED_MODEL, QDRANT_DIR
+from docrag.retrieval.hybrid import BM25Index, hybrid_search
+from docrag.retrieval.rerank import load_reranker, rerank_search
+from docrag.retrieval.search import search
 
 EVAL_FILE = Path("eval/questions.json")
 RESULTS_DIR = Path("eval/results")
@@ -38,7 +38,7 @@ def summarize(ranks: list[int | None]) -> dict:
 
 if __name__ == "__main__":
     run_name = sys.argv[1] if len(sys.argv) > 1 else "baseline"
-    mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid | rerank  # NEW
+    mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid | rerank
 
     questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
     questions = [q for q in questions if q["evidence"]]  # unanswerable ones have no evidence

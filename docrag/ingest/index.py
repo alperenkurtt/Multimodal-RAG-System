@@ -6,13 +6,11 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PointStruct, VectorParams
 from sentence_transformers import SentenceTransformer
 
-from chunks import build_chunks
-from figures import add_descriptions
-from parse import CACHE_DIR, parse_pdf
+from docrag.config import CACHE_DIR, COLLECTION, DATA_DIR, EMBED_MODEL, QDRANT_DIR
+from docrag.ingest.chunks import build_chunks
+from docrag.ingest.figures import add_descriptions
+from docrag.ingest.parse import parse_pdf
 
-EMBED_MODEL = "BAAI/bge-m3"
-QDRANT_DIR = "qdrant_data"
-COLLECTION = "docs"
 
 
 def chunk_point_id(source: str, chunk_id: str) -> str:
@@ -59,7 +57,7 @@ if __name__ == "__main__":
     if client.collection_exists(COLLECTION):
         client.delete_collection(COLLECTION)
 
-    for pdf_path in sorted(Path("data").glob("*.pdf")):
+    for pdf_path in sorted(DATA_DIR.glob("*.pdf")):
         index_pdf(pdf_path, model, client)
 
     print(f"Indexed {client.count(COLLECTION).count} points into '{COLLECTION}'")

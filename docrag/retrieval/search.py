@@ -1,7 +1,7 @@
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
-from index import COLLECTION, EMBED_MODEL, QDRANT_DIR
+from docrag.config import COLLECTION, EMBED_MODEL, QDRANT_DIR
 
 
 def search(query: str, model: SentenceTransformer, client: QdrantClient, k: int = 5):

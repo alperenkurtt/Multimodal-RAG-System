@@ -1,6 +1,5 @@
 import json
 from dataclasses import asdict, dataclass
-from pathlib import Path
 
 from docling_core.types.doc import (
     DocItemLabel,
@@ -11,7 +10,8 @@ from docling_core.types.doc import (
     TextItem,
 )
 
-from parse import CACHE_DIR, parse_pdf
+from docrag.config import CACHE_DIR, DATA_DIR
+from docrag.ingest.parse import parse_pdf
 
 MAX_CHARS = 1500        # max size of a text chunk (~350 tokens)
 MIN_PICTURE_SIDE = 200  # skip logos / tiny images (pixels, at images_scale=2)
@@ -107,7 +107,7 @@ def build_chunks(doc: DoclingDocument) -> list[Chunk]:
 
 
 if __name__ == "__main__":
-    pdf_path = Path("data/arxiv.pdf")
+    pdf_path = DATA_DIR / "arxiv.pdf"
     doc = parse_pdf(pdf_path)
     chunks = build_chunks(doc)
 

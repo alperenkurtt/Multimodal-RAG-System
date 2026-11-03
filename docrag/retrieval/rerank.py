@@ -1,10 +1,9 @@
 from qdrant_client import QdrantClient
 from sentence_transformers import CrossEncoder, SentenceTransformer
 
-from index import EMBED_MODEL, QDRANT_DIR
-from search import search
+from docrag.config import EMBED_MODEL, QDRANT_DIR, RERANK_MODEL
+from docrag.retrieval.search import search
 
-RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 CANDIDATES = 20  # dense top-20 already contains every answer (recall@20 = 27/27)
 
 

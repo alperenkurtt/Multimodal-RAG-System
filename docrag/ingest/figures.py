@@ -10,12 +10,12 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from PIL.Image import Image
 
-from chunks import Chunk, build_chunks
-from parse import CACHE_DIR, parse_pdf
+from docrag.config import CACHE_DIR, DATA_DIR, VLM_MODEL
+from docrag.ingest.chunks import Chunk, build_chunks
+from docrag.ingest.parse import parse_pdf
 
 load_dotenv()
 
-VLM_MODEL = "anthropic/claude-haiku-5.5"
 
 PROMPT = """You are describing a figure from a document so that it can be found by text search.
 
@@ -130,7 +130,7 @@ def add_descriptions(doc: DoclingDocument, chunks: list[Chunk], cache_file: Path
 
 
 if __name__ == "__main__":
-    pdf_path = Path("data/arxiv.pdf")
+    pdf_path = DATA_DIR / "arxiv.pdf"
     doc = parse_pdf(pdf_path)
     chunks = build_chunks(doc)
     add_descriptions(doc, chunks, CACHE_DIR / f"{pdf_path.stem}_figures.json")

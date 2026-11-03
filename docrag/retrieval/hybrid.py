@@ -3,8 +3,8 @@ import re
 from qdrant_client import QdrantClient
 from rank_bm25 import BM25Okapi
 
-from index import COLLECTION, QDRANT_DIR
-from search import search
+from docrag.config import COLLECTION, QDRANT_DIR
+from docrag.retrieval.search import search
 
 
 def tokenize(text: str) -> list[str]:

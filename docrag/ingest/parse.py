@@ -5,7 +5,7 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling_core.types.doc import DoclingDocument
 
-CACHE_DIR = Path("cache")
+from docrag.config import CACHE_DIR, DATA_DIR
 
 
 def parse_pdf(pdf_path: Path) -> DoclingDocument:
@@ -36,7 +36,7 @@ def parse_pdf(pdf_path: Path) -> DoclingDocument:
 
 
 if __name__ == "__main__":
-    doc = parse_pdf(Path("data/arxiv.pdf"))
+    doc = parse_pdf(DATA_DIR / "arxiv.pdf")
 
     print(f"\nText items : {len(doc.texts)}")
     print(f"Tables     : {len(doc.tables)}")

@@ -1,17 +1,15 @@
-from pathlib import Path
 
 from docling_core.types.doc import DoclingDocument
 from docling_core.types.doc import RefItem
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
-from figures import client as llm
-from figures import image_to_data_url
-from index import EMBED_MODEL, QDRANT_DIR
-from parse import parse_pdf
-from search import search
+from docrag.config import DATA_DIR, EMBED_MODEL, LLM_MODEL, QDRANT_DIR
+from docrag.ingest.figures import client as llm
+from docrag.ingest.figures import image_to_data_url
+from docrag.ingest.parse import parse_pdf
+from docrag.retrieval.search import search
 
-LLM_MODEL = "anthropic/claude-haiku-5.5"
 TOP_K = 5
 
 SYSTEM_PROMPT = """You answer questions about documents using only the numbered sources provided.
@@ -64,7 +62,7 @@ def answer(question: str, points, docs: dict[str, DoclingDocument]) -> str:
 
 if __name__ == "__main__":
     # Parsed docs are needed to load figure images (loaded from cache, fast)
-    docs = {pdf.name: parse_pdf(pdf) for pdf in Path("data").glob("*.pdf")}
+    docs = {pdf.name: parse_pdf(pdf) for pdf in DATA_DIR.glob("*.pdf")}
     model = SentenceTransformer(EMBED_MODEL)
     qdrant = QdrantClient(path=QDRANT_DIR)
 
