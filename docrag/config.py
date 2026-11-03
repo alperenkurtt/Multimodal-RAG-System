@@ -11,3 +11,4 @@ EMBED_MODEL = "BAAI/bge-m3"
 RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 LLM_MODEL = "anthropic/claude-haiku-5.5"  # answers
 VLM_MODEL = "anthropic/claude-haiku-5.5"  # figure descriptions
+JUDGE_MODEL = "anthropic/claude-sonnet-5.5" # grades answers

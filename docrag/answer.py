@@ -1,4 +1,3 @@
-
 from docling_core.types.doc import DoclingDocument
 from docling_core.types.doc import RefItem
 from qdrant_client import QdrantClient
@@ -9,6 +8,7 @@ from docrag.ingest.figures import client as llm
 from docrag.ingest.figures import image_to_data_url
 from docrag.ingest.parse import parse_pdf
 from docrag.retrieval.search import search
+from docrag.retrieval.rerank import load_reranker, rerank_search
 
 TOP_K = 5
 
@@ -40,6 +40,13 @@ def build_context(points, docs: dict[str, DoclingDocument]) -> list[dict]:
     return parts
 
 
+def retrieve(question: str, model, qdrant, reranker=None, k: int = TOP_K):
+    # Same output for both modes: list of (point, score)
+    if reranker is None:
+        return [(point, point.score) for point in search(question, model, qdrant, k=k)]
+    return rerank_search(question, model, qdrant, reranker, k=k)
+
+
 def answer(question: str, points, docs: dict[str, DoclingDocument]) -> str:
     content = build_context(points, docs)
     content.append({"type": "text", "text": f"Question: {question}"})
@@ -65,18 +72,19 @@ if __name__ == "__main__":
     docs = {pdf.name: parse_pdf(pdf) for pdf in DATA_DIR.glob("*.pdf")}
     model = SentenceTransformer(EMBED_MODEL)
     qdrant = QdrantClient(path=QDRANT_DIR)
+    reranker = load_reranker()
 
     while True:
         question = input("\nQuestion (empty to quit): ").strip()
         if not question:
             break
 
-        points = search(question, model, qdrant, k=TOP_K)
+        results = retrieve(question, model, qdrant, reranker)
+        points = [point for point, _ in results]
         print("\n" + answer(question, points, docs))
 
         print("\nSources:")
-        for n, point in enumerate(points, start=1):
+        for n, (point, score) in enumerate(results, start=1):
             p = point.payload
-            print(f"  [{n}] {p['source']} | {p['type']} | pages {p['pages']} | {p['heading']!r} (score {point.score:.3f})")
-
+            print(f"  [{n}] {p['source']} | {p['type']} | pages {p['pages']} | {p['heading']!r} (score {score:.3f})")
     qdrant.close()

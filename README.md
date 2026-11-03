@@ -13,8 +13,8 @@ Questions can be asked in any language (tested with English and Turkish).
 PDF ─► parse.py ─► chunks.py ─► figures.py ─► index.py ─► search.py / hybrid.py / rerank.py ─► answer.py
        Docling     text/table/   VLM figure    bge-m3 +    dense / BM25 / RRF / reranker      LLM answer
                    picture       descriptions  Qdrant                                         with citations
-                                                                 │
-                                                            evaluate.py
+                                                                 │                              │
+                                                            evaluate.py               evaluate_answers.py
 ```
 
 ```
@@ -26,8 +26,9 @@ docrag/
 ├── config.py    paths and model names
 ├── ingest/      parse.py, chunks.py, figures.py, index.py   (PDF -> vectors, run once)
 ├── retrieval/   search.py, hybrid.py, rerank.py             (question -> chunks)
-├── answer.py    chunks -> cited answer
-└── evaluate.py  retrieval metrics
+├── answer.py            chunks -> cited answer (dense top-20 + rerank -> top 5)
+├── evaluate.py          retrieval metrics
+└── evaluate_answers.py  answer + citation metrics (LLM judge)
 ```
 
 | Step | File | What it does |
@@ -38,8 +39,9 @@ docrag/
 | Index | `ingest/index.py` | Embeds all chunks of every PDF in `data/` with **bge-m3** and stores them in a local **Qdrant** folder, with type / page / heading / source metadata. |
 | Search | `retrieval/search.py`, `retrieval/hybrid.py` | Dense cosine search; BM25 (`rank_bm25`); Reciprocal Rank Fusion of both. |
 | Rerank | `retrieval/rerank.py` | Dense top-20 candidates re-sorted by a cross-encoder (**bge-reranker-v2-m3**) that reads query + chunk together. |
-| Answer | `answer.py` | Top chunks become numbered sources; figure sources also send the original image. The LLM answers in the question's language and cites sources like `[1][3]`. |
+| Answer | `answer.py` | Dense top-20 is reranked; the top 5 chunks become numbered sources; figure sources also send the original image. The LLM answers in the question's language and cites sources like `[1][3]`. |
 | Eval | `evaluate.py` | hit@1/3/5 and MRR, grouped by language, category and document. |
+| Answer eval | `evaluate_answers.py` | Answers every question, grades it with an LLM judge (Claude Sonnet 5.5), and checks that the cited chunks contain the evidence. |
 
 ## Setup
 
@@ -65,6 +67,7 @@ python -m docrag.retrieval.hybrid                # interactive BM25 search
 python -m docrag.retrieval.rerank                # interactive dense top-20 + rerank
 python -m docrag.answer                          # interactive cited answers
 python -m docrag.evaluate <run_name> <mode>      # mode: dense | bm25 | hybrid | rerank
+python -m docrag.evaluate_answers <run_name> <mode>  # mode: dense | rerank (calls the LLM ~60 times)
 ```
 
 ## Corpus
@@ -191,6 +194,42 @@ embedded as images, so the text layer holds only the caption and every number
 was flagged. After checking by eye, the VLM values were correct. The check now
 skips figures whose text layer is just the caption.
 
+### Results (answers)
+
+Each question is answered from the top 5 chunks, then measured three ways:
+
+- **in_context**: the evidence is in one of the 5 chunks given to the LLM (= retrieval hit@5).
+- **verdict**: an LLM judge (Claude Sonnet 5.5, a stronger model than the one answering)
+  compares the answer to the reference answer: correct / partial / wrong.
+- **cited_ok**: at least one chunk cited as `[n]` contains the evidence (string check, no LLM).
+- **refused**: for the 3 unanswerable questions, the system says it cannot find the answer.
+
+Reading them together tells where an error comes from: not in context → retrieval;
+in context but wrong → the LLM; correct but `cited_ok` false → the citation.
+
+| Run | correct | correct + partial | in_context | cited_ok | refused (3) |
+|---|---|---|---|---|---|
+| `dense` | 0.85 | 0.93 | 0.89 | 0.85 | 1.00 |
+| **`rerank`** | **0.93** | **0.96** | **0.96** | **0.93** | 1.00 |
+
+Reranking turned two answers right: q17 (wrong → correct, the answer chunk moved
+from rank 7 into the top 5) and q27 (partial → correct, the clearer chunk moved to rank 1).
+
+What reading the rows showed:
+- **Retrieval is the bottleneck.** `correct` follows `in_context` almost exactly:
+  when the evidence reaches the LLM, it nearly always uses it.
+- **No hallucination on unanswerable questions** (3/3). q20 is graded wrong, but the
+  answer says Table 5's values are not in the sources instead of guessing a number.
+- **q19 (dense): right answer, wrong source.** It cited the arxiv p. 8 screenshot copy
+  of the DocLayNet table, so the citation points to the Docling report.
+- **q23 partial is a label problem.** The question only asks for the backbone, but the
+  reference also lists the input size, so the judge counts it as missing.
+- **q11 `cited_ok` false in both runs.** The cited chunk does not contain the exact
+  string "90-92"; probably the value was read from the Figure 4 image. String
+  matching cannot check facts read from images. To verify.
+- Do not trust the judge blindly: the `reason` field was needed to find the two
+  issues above. With 27 questions, one question ≈ 0.04.
+
 ### Known issues
 
 - The Docling report (p. 8) contains a screenshot of the DocLayNet paper. Its text
@@ -208,11 +247,12 @@ skips figures whose text layer is just the caption.
 - [x] Retrieval eval, multi-document baseline
 - [x] BM25 + RRF hybrid (measured: did not help on this data)
 - [x] Reranker (`bge-reranker-v2-m3`) on dense top-20 (MRR 0.81 → 0.85)
+- [x] Answer and citation eval with an LLM judge (correct 0.85 → 0.93 with rerank)
+- [ ] Fix eval labels (q23 reference too strict, check q11 citation)
 - [ ] Duplicate removal, re-attach detached table captions, chunk size experiments
-- [ ] Answer and citation eval (is the answer correct, and does the cited source contain it)
 - [ ] Vision-based retrieval comparison (ColQwen-style)
 
 ## Stack
 
 Docling · sentence-transformers (BAAI/bge-m3, BAAI/bge-reranker-v2-m3) · Qdrant (local mode) · rank_bm25 ·
-OpenRouter (Claude Haiku 5.5 for VLM and answers) · Python 3
+OpenRouter (Claude Haiku 5.5 for VLM and answers, Claude Sonnet 5.5 as judge) · Python 3
