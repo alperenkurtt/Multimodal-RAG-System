@@ -140,7 +140,8 @@
     ],
     "answer": "90-92 (from Table 1 of the DocLayNet paper, shown in Figure 4).",
     "sources": [
-      "arxiv.pdf"
+      "arxiv.pdf",
+      "doclaynet.pdf"
     ]
   },
   {
@@ -295,7 +296,7 @@
     "evidence": [
       "ResNet-18"
     ],
-    "answer": "ResNet-18; input images are resized to 448x448 and the feature map is 28x28.",
+    "answer": "ResNet-18 (input images are resized to 448x448, giving a 28x28 feature map).",
     "sources": [
       "tableformer.pdf"
     ]

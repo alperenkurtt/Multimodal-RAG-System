@@ -3,10 +3,10 @@
   "mode": "dense",
   "summary": {
     "n_answerable": 27,
-    "correct": 0.85,
+    "correct": 0.89,
     "correct_or_partial": 0.93,
     "in_context": 0.89,
-    "cited_ok": 0.85,
+    "cited_ok": 0.89,
     "n_unanswerable": 3,
     "refused": 1.0
   },
@@ -119,7 +119,7 @@
       "reason": "The system answer gives 90-92 for Section-header in Manuals, matching the reference; the added mAP@0.5-0.95 detail does not contradict it.",
       "answer": "The inter-annotator mAP@0.5-0.95 for Section-header in the Manuals (Man) category is 90-92 [2].",
       "in_context": true,
-      "cited_ok": false
+      "cited_ok": true
     },
     {
       "id": "q12",
@@ -231,8 +231,8 @@
       "id": "q23",
       "lang": "en",
       "category": "text",
-      "verdict": "partial",
-      "reason": "The system correctly names ResNet-18 and the 28x28 feature map via adaptive pooling, but it does not mention the 448x448 input resize, which is part of the reference answer.",
+      "verdict": "correct",
+      "reason": "The system correctly identifies ResNet-18 and the 28x28 feature map via adaptive pooling, and nothing contradicts the reference; the 448x448 input size is omitted but is a minor detail.",
       "answer": "TableFormer uses ResNet-18 as its CNN Backbone Network [1]. The backbone removes the linear and pooling layers and adds an adaptive pooling layer of size 28*28 [3].",
       "in_context": true,
       "cited_ok": true
@@ -305,5 +305,6 @@
       "reason": "The system says the sources do not mention which GPU was used, matching the reference that this is not reported; the extra training details it cites do not contradict this.",
       "answer": "The provided sources do not mention which GPU was used to train TableFormer. Source [2] describes the training setup (three Adam optimizers, learning rates of 0.001 then 0.0001, batch sizes of 24 then 18, 12 epochs each), but it does not name any hardware. Source [3] mentions PyTorch and Torchvision as the implementation libraries, and source [1] notes that inference typically takes 2 to 6 seconds on a standard CPU, but neither refers to GPU training hardware."
     }
-  ]
+  ],
+  "note": "q11 cited_ok and q23 verdict re-scored after label fixes, without re-running the other questions"
 }

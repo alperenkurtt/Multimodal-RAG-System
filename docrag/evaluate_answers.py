@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+from pathlib import Path
 
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
@@ -58,7 +59,8 @@ if __name__ == "__main__":
     run_name = sys.argv[1]
     mode = sys.argv[2] if len(sys.argv) > 2 else "rerank"  # dense | rerank
 
-    questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
+    eval_file = Path(sys.argv[3]) if len(sys.argv) > 3 else EVAL_FILE  # e.g. eval/questions_holdout.json
+    questions = json.loads(eval_file.read_text(encoding="utf-8"))
     docs = {pdf.name: parse_pdf(pdf) for pdf in DATA_DIR.glob("*.pdf")}
     model = SentenceTransformer(EMBED_MODEL)
     qdrant = QdrantClient(path=QDRANT_DIR)

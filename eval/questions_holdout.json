@@ -1,0 +1,182 @@
+[
+  {
+    "id": "h01",
+    "question": "What page image resolution does Docling feed to the OCR engine?",
+    "lang": "en",
+    "category": "text",
+    "evidence": ["216 dpi"],
+    "answer": "216 dpi (a high-resolution image, to capture small print).",
+    "sources": ["arxiv.pdf"]
+  },
+  {
+    "id": "h02",
+    "question": "EasyOCR CPU'da sayfa başına ne kadar sürüyor?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": ["upwards of 30 seconds per page"],
+    "answer": "Sayfa başına 30 saniyeden fazla.",
+    "sources": ["arxiv.pdf"]
+  },
+  {
+    "id": "h03",
+    "question": "How long does the pypdfium backend take to process the test set on the Apple M3 Max with 4 threads?",
+    "lang": "en",
+    "category": "table",
+    "evidence": ["103 s"],
+    "answer": "103 seconds (time-to-solution for the 225-page test set).",
+    "sources": ["arxiv.pdf"]
+  },
+  {
+    "id": "h04",
+    "question": "Docling'de layout modeli ve TableFormer çıkarım için hangi kütüphanelere dayanıyor?",
+    "lang": "tr",
+    "category": "comparison",
+    "evidence": ["relies on the onnxruntime", "relies on pytorch"],
+    "answer": "Layout modeli onnxruntime, TableFormer PyTorch kullanıyor.",
+    "sources": ["arxiv.pdf"]
+  },
+  {
+    "id": "h05",
+    "question": "What throughput in pages per second does Docling reach with OCR enabled?",
+    "lang": "en",
+    "category": "near_miss",
+    "evidence": [],
+    "answer": "Not reported. The runtime table was measured with OCR disabled; the report only says EasyOCR takes upwards of 30 seconds per page on CPU.",
+    "sources": []
+  },
+  {
+    "id": "h06",
+    "question": "Which library is Docling's custom-built PDF parser based on?",
+    "lang": "en",
+    "category": "text",
+    "evidence": ["based on the low-level qpdf"],
+    "answer": "The low-level qpdf library (released as the docling-parse package).",
+    "sources": ["arxiv.pdf"]
+  },
+  {
+    "id": "h07",
+    "question": "DocLayNet'teki belgelerin yüzde kaçı Almanca?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": ["german (2.5%)"],
+    "answer": "%2,5 (belgelerin yaklaşık %95'i İngilizce).",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h08",
+    "question": "How long did it typically take an experienced annotator to annotate one DocLayNet page?",
+    "lang": "en",
+    "category": "text",
+    "evidence": ["20s to 60s"],
+    "answer": "20 to 60 seconds per page, depending on its complexity.",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h09",
+    "question": "What overall mAP does Mask R-CNN R50 reach on DocLayNet when trained with the 5-label set?",
+    "lang": "en",
+    "category": "table",
+    "evidence": ["sec.-h."],
+    "answer": "78 (vs 72 with all 11 labels).",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h10",
+    "question": "PubLayNet ve DocBank kaç etiket sağlıyor, DocLayNet ile karşılaştırınca?",
+    "lang": "tr",
+    "category": "comparison",
+    "evidence": ["publaynet provides 5 labels"],
+    "answer": "PubLayNet 5, DocBank 13 etiket sağlıyor; DocLayNet 11 etiket tanımlıyor (DocBank'ınki DocLayNet'in üst kümesi değil).",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h11",
+    "question": "With 11 labels, how much does the Page-footer mAP differ between the document-wise and the page-wise split?",
+    "lang": "en",
+    "category": "comparison",
+    "evidence": ["11 - page", "document-wise and page-wise split"],
+    "answer": "62 with the document-wise split vs 89 with the page-wise split (27 points higher).",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h12",
+    "question": "How many experts were in the DocLayNet core team that carried out annotation phases one and two?",
+    "lang": "en",
+    "category": "near_miss",
+    "evidence": [],
+    "answer": "Not reported. The paper only says phases one and two required 'a small team of experts'; 40 annotators were assembled for phases three and four.",
+    "sources": []
+  },
+  {
+    "id": "h13",
+    "question": "DocLayNet'te annotator eğitim sınavları için kaç sayfa referans olarak etiketlendi?",
+    "lang": "tr",
+    "category": "text",
+    "evidence": ["974 pages were reference-annotated"],
+    "answer": "974 sayfa (tek bir deneyimli çekirdek ekip üyesi tarafından).",
+    "sources": ["doclaynet.pdf"]
+  },
+  {
+    "id": "h14",
+    "question": "How many examples does the unified SynthTabNet dataset contain?",
+    "lang": "en",
+    "category": "text",
+    "evidence": ["600k examples"],
+    "answer": "600k (four synthetic datasets of 150k examples each).",
+    "sources": ["tableformer.pdf"]
+  },
+  {
+    "id": "h15",
+    "question": "TableFormer'ın PubTabNet üzerindeki hücre bounding box mAP'i post-processing ile kaç?",
+    "lang": "tr",
+    "category": "table",
+    "evidence": ["86.8"],
+    "answer": "86.8 (post-processing olmadan 82.1).",
+    "sources": ["tableformer.pdf"]
+  },
+  {
+    "id": "h16",
+    "question": "What dropout rate does TableFormer use?",
+    "lang": "en",
+    "category": "text",
+    "evidence": ["dropout layers are set to 0.5"],
+    "answer": "0.5.",
+    "sources": ["tableformer.pdf"]
+  },
+  {
+    "id": "h17",
+    "question": "How many GPU hours does it take to train TableFormer on PubTabNet?",
+    "lang": "en",
+    "category": "near_miss",
+    "evidence": [],
+    "answer": "Not reported. The paper only gives the schedule: 12 epochs at learning rate 0.001 with batch size 24, then 12 more epochs at 0.0001 with batch size 18.",
+    "sources": []
+  },
+  {
+    "id": "h18",
+    "question": "TableFormer'ın TableBank'taki complex tablolar için TEDS skoru nedir?",
+    "lang": "tr",
+    "category": "near_miss",
+    "evidence": [],
+    "answer": "Yok. TableBank sadece basit tablolardan oluşuyor; Table 2'de complex sütunu '-' (simple ve all: 89.6).",
+    "sources": []
+  },
+  {
+    "id": "h19",
+    "question": "Docling's layout model is re-trained on which dataset, and how many pages does that dataset contain?",
+    "lang": "en",
+    "category": "cross_doc",
+    "evidence": ["re-trained on doclaynet", "80863"],
+    "answer": "DocLayNet, which contains 80,863 pages.",
+    "sources": ["arxiv.pdf", "doclaynet.pdf"]
+  },
+  {
+    "id": "h20",
+    "question": "Docling'deki tablo modelinin CNN omurgası nedir ve Docling'de tipik bir tablo CPU'da ne kadar sürede işleniyor?",
+    "lang": "tr",
+    "category": "cross_doc",
+    "evidence": ["a resnet-18 cnn is the backbone", "between 2 and 6 seconds"],
+    "answer": "ResNet-18; tipik bir tablo standart bir CPU'da 2-6 saniyede işleniyor.",
+    "sources": ["tableformer.pdf", "arxiv.pdf"]
+  }
+]

@@ -3,10 +3,10 @@
   "mode": "rerank",
   "summary": {
     "n_answerable": 27,
-    "correct": 0.93,
+    "correct": 0.96,
     "correct_or_partial": 0.96,
     "in_context": 0.96,
-    "cited_ok": 0.93,
+    "cited_ok": 0.96,
     "n_unanswerable": 3,
     "refused": 1.0
   },
@@ -119,7 +119,7 @@
       "reason": "The system answer gives 90-92% for Section-header in Manuals, which matches the reference; the added mAP@0.5-0.95 detail does not contradict it.",
       "answer": "The inter-annotator mAP@0.5-0.95 for Section-header in the Manuals (Man) category is 90-92%. [2]",
       "in_context": true,
-      "cited_ok": false
+      "cited_ok": true
     },
     {
       "id": "q12",
@@ -231,8 +231,8 @@
       "id": "q23",
       "lang": "en",
       "category": "text",
-      "verdict": "partial",
-      "reason": "The system correctly names ResNet-18 and the 28x28 feature map (via adaptive pooling), but it omits the 448x448 input resize, which is part of the reference answer.",
+      "verdict": "correct",
+      "reason": "The system identifies ResNet-18 as the backbone and mentions the 28x28 feature map via adaptive pooling, which is consistent with the reference; it does not state the 448x448 input resize, but that is secondary.",
       "answer": "TableFormer uses ResNet-18 as its CNN Backbone Network [1]. The backbone's linear and pooling layers are removed and an adaptive pooling layer of size 28*28 is added [4].",
       "in_context": true,
       "cited_ok": true
@@ -305,5 +305,6 @@
       "reason": "The system says the sources do not mention the GPU used, which matches the reference that the information is not reported.",
       "answer": "The provided sources do not mention what GPU was used to train TableFormer. They describe the architecture, optimizers, learning rates, batch sizes, and epochs [1], but no hardware details."
     }
-  ]
+  ],
+  "note": "q11 cited_ok and q23 verdict re-scored after label fixes, without re-running the other questions"
 }

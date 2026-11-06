@@ -40,7 +40,8 @@ if __name__ == "__main__":
     run_name = sys.argv[1] if len(sys.argv) > 1 else "baseline"
     mode = sys.argv[2] if len(sys.argv) > 2 else "dense"  # dense | bm25 | hybrid | rerank
 
-    questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
+    eval_file = Path(sys.argv[3]) if len(sys.argv) > 3 else EVAL_FILE  # e.g. eval/questions_holdout.json
+    questions = json.loads(eval_file.read_text(encoding="utf-8"))
     questions = [q for q in questions if q["evidence"]]  # unanswerable ones have no evidence
 
     model = SentenceTransformer(EMBED_MODEL)
