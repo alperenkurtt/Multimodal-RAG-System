@@ -1,3 +1,4 @@
+import shutil
 import uuid
 from dataclasses import asdict
 from pathlib import Path
@@ -51,11 +52,12 @@ def index_pdf(pdf_path: Path, model: SentenceTransformer, client: QdrantClient) 
 
 if __name__ == "__main__":
     model = SentenceTransformer(EMBED_MODEL)
-    client = QdrantClient(path=QDRANT_DIR)  # local mode: just a folder, no server
 
-    # Rebuild the collection from scratch on every run
-    if client.collection_exists(COLLECTION):
-        client.delete_collection(COLLECTION)
+    # Rebuild from scratch on every run. Remove the folder before opening the client:
+    # on Windows delete_collection silently keeps the open SQLite file and its old points
+    if Path(QDRANT_DIR).exists():
+        shutil.rmtree(QDRANT_DIR)
+    client = QdrantClient(path=QDRANT_DIR)  # local mode: just a folder, no server
 
     for pdf_path in sorted(DATA_DIR.glob("*.pdf")):
         index_pdf(pdf_path, model, client)

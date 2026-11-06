@@ -10,7 +10,7 @@ from docling_core.types.doc import (
     TextItem,
 )
 
-from docrag.config import CACHE_DIR, DATA_DIR
+from docrag.config import CACHE_DIR, DATA_DIR, MISSING_CAPTIONS, SKIP_PAGES
 from docrag.ingest.parse import parse_pdf
 
 MAX_CHARS = 1500        # max size of a text chunk (~350 tokens)
@@ -32,6 +32,8 @@ def build_chunks(doc: DoclingDocument) -> list[Chunk]:
     heading = None
     buffer: list[str] = []
     buffer_pages: set[int] = set()
+    skip_pages = SKIP_PAGES.get(doc.name, set())
+    captions = MISSING_CAPTIONS.get(doc.name, {})
 
     def flush():
         # citation lists add noise to retrieval
@@ -57,6 +59,8 @@ def build_chunks(doc: DoclingDocument) -> list[Chunk]:
     # Reading order; skips text inside pictures and page headers/footers
     for item, _level in doc.iterate_items():
         page = item.prov[0].page_no if item.prov else None
+        if page in skip_pages:
+            continue
 
         if isinstance(item, SectionHeaderItem):
             flush()
@@ -65,10 +69,13 @@ def build_chunks(doc: DoclingDocument) -> list[Chunk]:
         elif isinstance(item, TableItem):
             if item.data.num_rows == 0:  # empty / misdetected table
                 continue
+            text = item.export_to_markdown(doc)  # includes the caption
+            if item.self_ref in captions:
+                text = f"{captions[item.self_ref]}\n\n{text}"
             chunks.append(Chunk(
                 id=f"table-{len(chunks)}",
                 type="table",
-                text=item.export_to_markdown(doc),  # includes the caption
+                text=text,
                 pages=[page],
                 heading=heading,
                 ref=item.self_ref,
