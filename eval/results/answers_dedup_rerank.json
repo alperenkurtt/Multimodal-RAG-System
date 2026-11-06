@@ -1,0 +1,309 @@
+{
+  "run": "dedup_rerank",
+  "mode": "rerank",
+  "summary": {
+    "n_answerable": 27,
+    "correct": 0.96,
+    "correct_or_partial": 1.0,
+    "in_context": 1.0,
+    "cited_ok": 1.0,
+    "n_unanswerable": 3,
+    "refused": 1.0
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer names TableFormer and describes it as a vision-transformer model that predicts row/column structure from an image, matching the reference with no contradictions.",
+      "answer": "Docling uses TableFormer for table structure recognition. It is a vision-transformer model that predicts the logical row and column structure of a table from an image [1]. The report also describes it as a state-of-the-art table structure recognition model [2].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q02",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer covers all key facts from the reference: it names TableFormer, says the table image crop and text cells are sent to it, says it predicts row/column structure, and says the predictions are matched with PDF cells.",
+      "answer": "Docling, tabloları TableFormer modeliyle tanır. TableFormer, bir görüntüye dayanarak tablonun mantıksal satır ve sütun yapısını tahmin eden, vision-transformer tabanlı bir modeldir ve hücrelerin sütun başlığı, satır başlığı veya tablo gövdesine ait olup olmadığını belirler [4]. Docling pipeline'ı, katman analizinde tespit edilen tüm tabloları, tablonun bir görüntü kırpması ve içerdiği metin hücreleriyle birlikte TableFormer'a gönderir [4]. TableFormer'ın yapı tahminleri, tablo görüntüsünün yeniden transkripsiyonundan kaçınmak için son işleme adımında PDF hücreleriyle eşleştirilir [4].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q03",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer gives the same 2-6 second range on a standard CPU and the same dependence on the number of cells as the reference, with no contradictions.",
+      "answer": "Typical tables require between 2 and 6 seconds to be processed on a standard CPU, depending strongly on the number of included table cells [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q04",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer names EasyOCR as the OCR library Docling uses, which matches the reference, and the added detail about language support does not contradict it.",
+      "answer": "Docling, OCR için EasyOCR kütüphanesini kullanıyor [1]. Bu, çeşitli dilleri destekleyen üçüncü taraf popüler bir OCR kütüphanesidir [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q05",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer states 72 dpi, which matches the reference answer exactly.",
+      "answer": "Page images are fed to the layout analysis model at 72 dpi resolution [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q06",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system names RT-DETR, which is the key fact the question asks for; it omits the 'retrained on DocLayNet' detail, but that is secondary and nothing contradicts it.",
+      "answer": "Docling's layout analysis model is derived from RT-DETR [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q07",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer conveys that GPU support is work-in-progress and largely untested, and that it may work implicitly when CUDA is available, matching the reference without contradiction.",
+      "answer": "Partially, and not yet fully established. The report says that establishing GPU acceleration support for the AI models is \"currently work-in-progress and largely untested,\" but it \"may work implicitly when CUDA is available and discovered by the onnxruntime and torch runtimes backing the Docling pipeline\" [1]. Future plans also include \"further investment into testing and optimizing GPU acceleration\" [2].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q08",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer states Docling is distributed under the MIT license, which matches the reference answer.",
+      "answer": "Docling, MIT lisansı ile dağıtılmaktadır [1][3].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q09",
+      "lang": "en",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system answer gives 2.45 pages per second for the pypdfium backend on the Apple M3 Max with 16 threads, which matches the reference answer.",
+      "answer": "The pypdfium backend on the Apple M3 Max with 16 threads achieves a throughput of 2.45 pages per second [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q10",
+      "lang": "tr",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system answer gives 6.16 GB for native backend memory on the Intel Xeon system, which matches the reference; the added CPU model detail does not contradict it.",
+      "answer": "Intel Xeon E5-2690 sisteminde native backend'in kullandığı bellek 6.16 GB'tır [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q11",
+      "lang": "en",
+      "category": "figure",
+      "verdict": "correct",
+      "reason": "The system answer gives 90-92% for Section-header in Manuals, which matches the reference; the added mAP@0.5-0.95 detail does not contradict it.",
+      "answer": "The inter-annotator mAP@0.5-0.95 for Section-header in the Manuals (Man) category is 90-92%. [1]",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q12",
+      "lang": "tr",
+      "category": "figure",
+      "verdict": "correct",
+      "reason": "The system answer covers all reference steps: PDF parsing, the model pipeline (OCR, layout analysis, table structure), assembly and post-processing, and JSON/Markdown output, with no contradictions.",
+      "answer": "Docling'in işlem hattı doğrusal (sıralı) bir yapıdadır ve şu adımlardan oluşur:\n\n1. **PDF ayrıştırma:** Her belge önce bir PDF backend'i tarafından işlenir; bu aşamada metin belirteçleri (içerik ve sayfa koordinatları) çıkarılır ve destek amaçlı sayfa görüntüleri oluşturulur [1].\n\n2. **Model işlem hattı:** Standart model işlem hattı, her sayfaya bağımsız olarak bir dizi yapay zekâ modeli uygular ve düzen (layout) ile tablo yapıları gibi özellikleri ve içeriği çıkarır [1]. Şekil 1'e göre bu hat OCR, düzen analizi (layout analysis) ve tablo yapısı (table structure) bileşenlerinden oluşur ve bu iç kısım kolayca özelleştirilebilir ve genişletilebilir [5].\n\n3. **Birleştirme (Assembly):** Tüm sayfaların tahmin sonuçları birleştirilip, dönüştürülmüş belgeyi temsil eden tipli bir belge nesnesine dönüştürülür [2].\n\n4. **Son işleme (post-processing):** Bu nesne, dil tespiti, okuma sırasının düzeltilmesi, şekillerin başlıklarla eşleştirilmesi ve başlık, yazar ve kaynakça gibi üst veri etiketlenmesi gibi algoritmalardan geçirilir [2]. Şekil 1 de bu aşamayı \"belge son işlemesi\" olarak gösterir [5].\n\n5. **Çıktı:** Sonuç, kullanıcının isteğine göre JSON'a seri hale getirilir veya Markdown formatına dönüştürülür [2][5].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q13",
+      "lang": "en",
+      "category": "figure",
+      "verdict": "correct",
+      "reason": "The system lists the same five authors as the reference; the added affiliation (IBM Research, Rueschlikon) does not contradict it and matches the actual paper.",
+      "answer": "The authors of the DocLayNet paper are Birgit Pfitzmann, Christoph Auer, Michele Dolfi, Ahmed S. Nassar, and Peter Staar, all from IBM Research in Rueschlikon, Switzerland [2][5].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q14",
+      "lang": "en",
+      "category": "trap",
+      "verdict": "correct",
+      "reason": "The system answer states the goal is to obtain high-quality ML models for document-layout analysis, matching the reference; the added detail about challenging layouts does not contradict it.",
+      "answer": "The primary goal of DocLayNet is to obtain high-quality ML models capable of accurate document-layout analysis on a wide variety of challenging layouts [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q15",
+      "lang": "en",
+      "category": "unanswerable",
+      "verdict": "correct",
+      "reason": "The system says the sources contain no information about Docling's accuracy on DocBank, which matches the reference answer that it is not reported.",
+      "answer": "The provided sources do not contain any information about Docling's accuracy on the DocBank benchmark. They describe the layout analysis model (re-trained on DocLayNet) [1], the OCR support using EasyOCR [4], the AI models including TableFormer [5], and downstream applications [2], but none mention DocBank or any accuracy figures."
+    },
+    {
+      "id": "q16",
+      "lang": "en",
+      "category": "unanswerable",
+      "verdict": "correct",
+      "reason": "The reference says the information is not in the document, and the system answer says the sources do not contain information about the capital of France, without answering the question anyway.",
+      "answer": "The provided sources do not contain information about the capital of France. They cover the DocLayNet document-layout dataset paper, a table excerpt, and figures showing sample document pages."
+    },
+    {
+      "id": "q17",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answers 32 annotators for production annotation, matching the reference, and mentions the group of 40 without contradicting it (though it frames the difference as a source discrepancy rather than 8 failing the exams).",
+      "answer": "The production annotation was carried out by 32 annotators [3]. Note that source [5] mentions a group of 40 dedicated annotators assembled and supervised for phases three and four [5], so the sources differ on the total headcount, but the production phase specifically is stated as 32 annotators [3].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q18",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The answer covers both key facts from the reference: pages from the same document leaking into train and test, and page-based splitting inflating mAP by about 10%. The extra point about document-specific style and overfitting does not contradict the reference.",
+      "answer": "DocLayNet, aynı dokümanın sayfalarının hem eğitim hem test/doğrulama setlerine dağılmasını önlemek için bölünmüştür; her doküman yalnızca bir sete katkı sağlar [2]. Bunun nedeni, birçok dokümanın kendine özgü bir stile sahip olması ve modelin belirli bir stile aşırı uyum sağlamasını (overfitting) engellemektir [1]. Rastgele sayfa bazında bölünmenin model performansını yapay olarak yükseltebileceği ve bu nedenle kaçınılması gerektiği belirtilmiştir; sayfa bazında bölme, doküman bazındaki bölmeye göre mAP'de yaklaşık %10 daha yüksek sonuç vermiştir [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q19",
+      "lang": "en",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system names YOLOv5x6 with 76.8 mAP as the best overall model, matching the reference's key facts. It omits the human agreement comparison (82-83), but that is a secondary detail, and nothing in the answer contradicts the reference.",
+      "answer": "The YOLO model (YOLOv5x6) has the best overall mAP on the DocLayNet test set, at 76.8 for \"All\" classes, compared with 72.4 for MRCNN-R50, 73.5 for MRCNN-R101, and 73.4 for FRCNN-R101 [3]. This is also consistent with the note that the YOLOv5x model performs very well on the DocLayNet dataset [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q20",
+      "lang": "tr",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system gives the key fact of 30 mAP on the DocLayNet test set, matching the reference; the parenthetical 93 on PubLayNet's own test set is additional context, not the core answer.",
+      "answer": "PubLayNet ile eğitilen modelin DocLayNet test setindeki toplam mAP skoru 30'dur [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q21",
+      "lang": "en",
+      "category": "figure",
+      "verdict": "correct",
+      "reason": "The system answer states that Financial Reports make up 32% of DocLayNet pages, which matches the reference answer exactly.",
+      "answer": "According to the pie chart in Figure 2, Financial Reports make up 32% of DocLayNet pages [2].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q22",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer states 11 class labels, matching the reference, and its list of 11 labels is the correct DocLayNet set.",
+      "answer": "DocLayNet defines 11 distinct class labels: Caption, Footnote, Formula, List-item, Page-footer, Page-header, Picture, Section-header, Table, Text, and Title [2][5].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q23",
+      "lang": "en",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system correctly identifies ResNet-18 and its 28x28 feature map via adaptive pooling, which is consistent with the reference; it omits the 448x448 input size, but that is a minor detail.",
+      "answer": "TableFormer uses ResNet-18 as its CNN Backbone Network [1]. The backbone has its linear and pooling layers removed and an adaptive pooling layer of size 28*28 added [4].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q24",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer states 2 encoder and 4 decoder layers, which matches the reference, and nothing in it contradicts the reference.",
+      "answer": "Structure Decoder, iki transformer encoder katmanı ve dört transformer decoder katmanından oluşur [1][2]. Şekil 4'te de Transformer Encoder Network \"x2\", Transformer Decoder Network \"x4\" olarak gösterilmektedir [4].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q25",
+      "lang": "en",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system gives 95.0 for complex tables, matching the key fact in the reference; the simple and all-table scores are extra context that the question does not ask for.",
+      "answer": "TableFormer achieves a TEDS score of 95.0 on complex tables of PubTabNet [2]. The abstract also reports this figure, stating that TEDS on complex tables improves from 88.7% to 95% [3].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q26",
+      "lang": "tr",
+      "category": "table",
+      "verdict": "correct",
+      "reason": "The system answer gives the same Simple 80.0, Complex 66.0, and All 73.0 values as the reference, and the extra note about structure results does not contradict them.",
+      "answer": "Camelot'un PubTabNet üzerindeki TEDS skoru, cell content değerlendirmesinde Simple için 80.0, Complex için 66.0 ve All için 73.0'tür [1].\n\nAyrıca structure sonuçlarında PubTabNet için Camelot'a ait ayrı bir değer verilmemiştir; Tablo 2'de yalnızca EDD, GTE ve TableFormer yer almaktadır [3].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q27",
+      "lang": "en",
+      "category": "table",
+      "verdict": "partial",
+      "reason": "The first sentence matches the reference (only a few TableBank tables have cell bounding boxes), but the added claim that TableBank omits bounding boxes for whole tables is unsupported and contradicts the first statement.",
+      "answer": "Only a few TableBank tables have cell bounding boxes; the source says that TableBank \"has annotations for the table structure, but only few with bounding boxes of the table cells\" [1]. Moreover, the original datasets either omit the bounding boxes for whole tables (e.g. TableBank) or narrow their scope only to non-empty cells [2].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q28",
+      "lang": "en",
+      "category": "figure",
+      "verdict": "correct",
+      "reason": "The system gives the key fact, an odds ratio of 15.86, which matches the reference; it omits the confidence interval and p-value, but these are supplementary to the question asked.",
+      "answer": "The odds ratio for severe bleeding in the multi-line header example is 15.86 [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q29",
+      "lang": "tr",
+      "category": "text",
+      "verdict": "correct",
+      "reason": "The system answer states that TEDS stands for Tree-Edit-Distance-Based Similarity, which matches the reference exactly.",
+      "answer": "TEDS, \"Tree-Edit-Distance-Based Similarity\" metriğinin kısaltmasıdır [1].",
+      "in_context": true,
+      "cited_ok": true
+    },
+    {
+      "id": "q30",
+      "lang": "en",
+      "category": "unanswerable",
+      "verdict": "correct",
+      "reason": "The system states that the sources do not say which GPU was used, which matches the reference that this is not reported.",
+      "answer": "The provided sources do not state which GPU was used to train TableFormer. They describe the architecture, optimizers, learning rates, batch sizes, and epochs [1], but no hardware details."
+    }
+  ]
+}
